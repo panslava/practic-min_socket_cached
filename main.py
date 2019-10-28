@@ -22,12 +22,12 @@ while True:
 
     response = {}
     request = {}
-
+    print(data)
     try:
         request = json.loads(data)
     except ValueError as e:
         response["Status"] = "Bad Request"
-
+    print(request)
     if request["action"] == "get":
         ans = cache.get(request["key"])
 
@@ -45,7 +45,7 @@ while True:
             response["Status"] = "Key already exists"
         else:
             response["Status"] = "Created"
-            cache.set(request["key"], request["message"])
+            cache.set(request["key"], str(request["message"]))
 
     if request["action"] == "delete":
         if cache.exists(request["key"]):
